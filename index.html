@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mouhamed Mbaye — Page Personnelle</title>
+  <title>Mbaye-Mouhamed</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -21,7 +21,6 @@
     <div class="navbar-inner">
       <ul class="navbar-links">
         <li><a href="#about"        data-section="about"        data-i18n="nav.about">À propos</a></li>
-        <li><a href="#research"     data-section="research"     data-i18n="nav.research">Recherche</a></li>
         <li><a href="#news"         data-section="news"         data-i18n="nav.news">Actualités</a></li>
         <li><a href="#projects"     data-section="projects"     data-i18n="nav.projects">Projets</a></li>
         <li><a href="#publications" data-section="publications" data-i18n="nav.publications">Publications</a></li>
@@ -72,12 +71,7 @@
 
       <section id="about">
         <h2 data-i18n="about.title">À propos</h2>
-        <p class="section-text" data-i18n="about.bio"></p>
-      </section>
-
-      <section id="research">
-        <h2 data-i18n="research.title">Intérêts de recherche</h2>
-        <p class="section-text" id="research-content"></p>
+        <div id="about-content"></div>
       </section>
 
       <section id="news">
@@ -92,7 +86,7 @@
 
       <section id="publications">
         <h2 data-i18n="publications.title">Publications</h2>
-        <p class="section-text muted" data-i18n="publications.text"></p>
+        <div id="publications-list"></div>
       </section>
 
       <section id="education">

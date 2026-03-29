@@ -6,16 +6,14 @@ const i18n = {
     'nav.education': 'Formation', 'nav.contact': 'Contact',
     'banner.welcome': 'Bienvenue sur la page web personnelle de',
     'about.title': 'À propos',
-    'about.bio': "Récemment diplômé d'un Master II en Traitement Automatique des Langues (TAL), je suis à la recherche d'un contrat doctoral. Mes travaux portent sur la conception de pipelines NLP robustes, l'exploitation de modèles de langue (LLMs) et des architectures comme la Génération Augmentée par Récupération (RAG) et la Reconnaissance d'Entités Nommées (NER). Locuteur natif du wolof, je m'intéresse particulièrement au traitement des langues à faibles ressources.",
     'about.status': "À la recherche d'un contrat doctoral",
     'about.lang-title': 'Langues',
     'about.languages': "Français : Courant\nAnglais : Professionnel\nArabe : Courant\nWolof : Natif",
     'about.link.email': 'E-mail', 'about.link.cv': 'Télécharger le CV',
-    'research.title': 'Intérêts de recherche',
+    'research.title': 'Axes de recherche',
     'news.title': 'Actualités',
     'projects.title': 'Projets', 'projects.live': 'Site en ligne', 'projects.code': 'Code',
     'publications.title': 'Publications',
-    'publications.text': "Aucune publication pour l'instant. En cours de préparation.",
     'education.title': 'Formation',
     'contact.title': 'Contact',
     'contact.text': "N'hésitez pas à me contacter pour toute opportunité de collaboration, de recherche ou de contrat doctoral.",
@@ -26,16 +24,14 @@ const i18n = {
     'nav.education': 'Education', 'nav.contact': 'Contact',
     'banner.welcome': 'Welcome to the personal webpage of',
     'about.title': 'About',
-    'about.bio': "Recently graduated with a Master's degree in Natural Language Processing (NLP), I am currently seeking a doctoral contract. My work focuses on designing robust NLP pipelines, leveraging Large Language Models (LLMs) and architectures such as Retrieval-Augmented Generation (RAG) and Named Entity Recognition (NER). As a native Wolof speaker, I am particularly interested in low-resource language processing.",
     'about.status': 'Seeking a doctoral contract',
     'about.lang-title': 'Languages',
     'about.languages': "French : Fluent\nEnglish : Professional\nArabic : Fluent\nWolof : Native",
     'about.link.email': 'E-mail', 'about.link.cv': 'Download CV',
-    'research.title': 'Research Interests',
+    'research.title': 'Research',
     'news.title': 'News',
     'projects.title': 'Projects', 'projects.live': 'Live site', 'projects.code': 'Code',
     'publications.title': 'Publications',
-    'publications.text': 'No publications yet. In preparation.',
     'education.title': 'Education',
     'contact.title': 'Contact',
     'contact.text': 'Feel free to reach out for any collaboration opportunity, research inquiry, or doctoral contract.',
@@ -43,27 +39,141 @@ const i18n = {
 }
 
 /* ── DONNÉES ── */
-const research = {
-  fr: ['Traitement Automatique des Langues (TAL/NLP)', 'Modèles de Langue (LLMs)', 'Génération Augmentée par Récupération (RAG)', "Reconnaissance d'Entités Nommées (NER)", "Fouille de textes & Extraction d'information", 'Langues à faibles ressources', 'Reconnaissance Automatique de la Parole (ASR)', 'Annotation de données linguistiques'],
-  en: ['Natural Language Processing (NLP)', 'Large Language Models (LLMs)', 'Retrieval-Augmented Generation (RAG)', 'Named Entity Recognition (NER)', 'Text Mining & Information Extraction', 'Low-Resource Languages', 'Automatic Speech Recognition (ASR)', 'Linguistic Data Annotation'],
+const aboutData = {
+  fr: {
+    greeting: 'Bonjour,',
+    intro: "Je suis Mouhamed Mbaye, ingénieur en Traitement Automatique des Langues, diplômé en 2025 de l'Université Marie et Louis Pasteur de Besançon.",
+    status: "Je suis actuellement à la recherche d'un contrat doctoral dans le domaine du TAL.",
+    interestsTitle: 'Intérêts de recherche',
+    interests: [
+      {
+        title: "Recherche et Extraction d'Information",
+        body: "La recherche d'information (IR) vise à retrouver les documents pertinents au sein de grandes collections de données. L'extraction d'information (IE) consiste à identifier et structurer automatiquement des éléments précis dans du texte : entités nommées, relations entre entités, événements ou attributs clés. Ces tâches peuvent être abordées par des approches classiques de Machine Learning (CRF, SVM), des architectures Transformers (BERT, RoBERTa), ou des méthodes zero-shot et few-shot avec les LLMs permettant des résultats compétitifs même avec très peu de données annotées.",
+      },
+      {
+        title: "Exploitation des grands modèles de langue (LLMs)",
+        body: "Je m'intéresse en particulier à la Génération Augmentée par Récupération (RAG) : une approche qui enrichit les réponses d'un LLM en les ancrant dans des sources documentaires externes, pour des réponses plus fiables et vérifiables. Plus largement, je m'intéresse aux méthodes d'adaptation et de spécialisation des LLMs pour des domaines et des tâches spécifiques.",
+      },
+      {
+        title: "Traitement des langues à faibles ressources",
+        body: "Les langues dites « à faibles ressources » disposent de peu de données numériques (corpus annotés, lexiques, modèles pré-entraînés) par rapport aux langues dominantes. Locuteur natif du wolof, je suis convaincu que les avancées en TAL doivent aussi profiter à ces langues peu dotées. J'ai notamment travaillé sur la reconnaissance vocale du wolof et sur un système RAG dédié aux documents officiels sénégalais.",
+      },
+    ],
+  },
+  en: {
+    greeting: 'Hello,',
+    intro: "I am Mouhamed Mbaye, a Natural Language Processing engineer, graduated in 2025 from Université Marie et Louis Pasteur in Besançon.",
+    status: "I am currently seeking a doctoral contract in the field of NLP.",
+    interestsTitle: 'Research Interests',
+    interests: [
+      {
+        title: "Information Retrieval and Extraction",
+        body: "Information Retrieval (IR) aims to identify relevant documents within large data collections. Information Extraction (IE) consists of automatically identifying and structuring specific elements in text: named entities, entity relations, events, or key attributes. These tasks can be tackled using classical Machine Learning approaches (CRF, SVM), Transformer architectures (BERT, RoBERTa), or zero-shot and few-shot methods with LLMs, yielding competitive results even with very little annotated data.",
+      },
+      {
+        title: "Leveraging Large Language Models (LLMs)",
+        body: "I am particularly interested in Retrieval-Augmented Generation (RAG): an approach that enhances LLM responses by grounding them in external documentary sources, producing more reliable and verifiable answers. More broadly, I am interested in methods for adapting and specialising LLMs for specific domains and tasks.",
+      },
+      {
+        title: "Low-Resource Language Processing",
+        body: "Low-resource languages have limited digital data (annotated corpora, lexicons, pre-trained models) compared to dominant languages. As a native Wolof speaker, I believe that NLP advances must also benefit these underserved languages. I have worked on automatic speech recognition for Wolof and on a RAG system dedicated to official Senegalese documents.",
+      },
+    ],
+  },
+}
+
+const researchAxes = {
+  fr: [
+    {
+      title: 'Langues à faibles ressources & traitement de la parole',
+      body: "Les langues africaines, dont le wolof ma langue maternelle, restent largement sous-représentées dans les ressources numériques. Mes travaux visent à construire des modèles adaptés à ces langues : fine-tuning de Whisper Small sur 3 400 échantillons wolof annotés manuellement (WER de 12,07 % après 500 steps), constitution de corpus et développement de pipelines de bout en bout pour des langues peu dotées.",
+      tags: ['ASR', 'Wolof', 'Whisper', 'Annotation', 'HuggingFace'],
+      projectRef: 'ASR Wolof — Whisper Fine-tuné',
+    },
+    {
+      title: "Génération Augmentée par Récupération (RAG) & extraction d'information",
+      body: "Comment rendre un corpus documentaire interrogeable par des non-experts ? C'est la question centrale qui a guidé KNOW-SN RAG, un système combinant recherche vectorielle (ChromaDB) et génération contextualisée (GPT-4o-mini) sur les documents officiels sénégalais. Cette problématique rejoint également IMGT-NER-APP, où la Reconnaissance d'Entités Nommées dans un domaine très contraint (la nomenclature DCI des anticorps monoclonaux) exige une précision terminologique élevée.",
+      tags: ['RAG', 'NER', 'ChromaDB', 'LangChain', 'BiLSTM-CRF'],
+      projectRef: 'KNOW-SN RAG · IMGT-NER-APP',
+    },
+    {
+      title: 'Grands Modèles de Langue (LLMs) & systèmes multi-agents',
+      body: "Les LLMs ouvrent des possibilités inédites pour l'analyse documentaire et le raisonnement automatisé. Je m'intéresse à leur déploiement local et souverain (Ollama, Llama 3.2) pour des contextes à faible connectivité ou exigeant la confidentialité des données, ainsi qu'à leur orchestration dans des architectures multi-agents autonomes.",
+      tags: ['LLMs', 'Ollama', 'Llama 3.2', 'Multi-agents', 'Souveraineté des données'],
+      projectRef: 'AI Orchestrator',
+    },
+    {
+      title: 'NLP biomédical & terminologie spécialisée',
+      body: "Le NLP médical pose des défis spécifiques : vocabulaire très contraint, données rares et étiquetage coûteux. Mon stage à l'IMGT (IGH, CNRS) m'a permis d'explorer ces enjeux à travers la conception de modèles BiLSTM-CRF pour l'extraction automatique d'entités dans les descriptions d'anticorps monoclonaux, en collaboration avec les équipes de l'OMS.",
+      tags: ['NLP Biomédical', 'NER', 'BiLSTM-CRF', 'CNRS', 'spaCy'],
+      projectRef: 'IMGT-NER-APP',
+    },
+  ],
+  en: [
+    {
+      title: 'Low-Resource Languages & Speech Processing',
+      body: "African languages, including Wolof my mother tongue, remain largely underrepresented in digital resources. My work aims to build models adapted to these languages: fine-tuning Whisper Small on 3,400 manually annotated Wolof samples (12.07% WER after 500 training steps), building corpora, and developing end-to-end pipelines for underserved languages.",
+      tags: ['ASR', 'Wolof', 'Whisper', 'Annotation', 'HuggingFace'],
+      projectRef: 'ASR Wolof — Fine-tuned Whisper',
+    },
+    {
+      title: 'Retrieval-Augmented Generation (RAG) & Information Extraction',
+      body: "How can a documentary corpus be made queryable by non-experts? This is the central question behind KNOW-SN RAG, a system combining vector search (ChromaDB) and contextualised generation (GPT-4o-mini) on official Senegalese documents. The same challenge underpins IMGT-NER-APP, where Named Entity Recognition in a highly constrained domain (monoclonal antibody INN nomenclature) demands high terminological precision.",
+      tags: ['RAG', 'NER', 'ChromaDB', 'LangChain', 'BiLSTM-CRF'],
+      projectRef: 'KNOW-SN RAG · IMGT-NER-APP',
+    },
+    {
+      title: 'Large Language Models (LLMs) & Multi-Agent Systems',
+      body: "LLMs open unprecedented possibilities for document analysis and automated reasoning. My interest lies in their local and sovereign deployment (Ollama, Llama 3.2) for low-connectivity or data-confidential contexts, as well as their orchestration within autonomous multi-agent architectures.",
+      tags: ['LLMs', 'Ollama', 'Llama 3.2', 'Multi-agents', 'Data Sovereignty'],
+      projectRef: 'AI Orchestrator',
+    },
+    {
+      title: 'Biomedical NLP & Specialised Terminology',
+      body: "Medical NLP poses specific challenges: highly constrained vocabulary, scarce data, and costly annotation. My internship at IMGT (IGH, CNRS) allowed me to explore these issues through the design of BiLSTM-CRF models for automated entity extraction in monoclonal antibody descriptions, in collaboration with WHO teams.",
+      tags: ['Biomedical NLP', 'NER', 'BiLSTM-CRF', 'CNRS', 'spaCy'],
+      projectRef: 'IMGT-NER-APP',
+    },
+  ],
+}
+
+const publications = {
+  fr: [
+    {
+      type: 'Rapport de stage · Master II TAL',
+      title: "Développement de IMGT-NER-APP : extraction automatique d'entités nommées pour les anticorps monoclonaux",
+      venue: 'IMGT (IGH, CNRS), Montpellier, Université Marie et Louis Pasteur, Besançon',
+      year: '2025',
+      note: "Rapport de fin de stage de M2 : conception, entraînement et déploiement d'un modèle BiLSTM-CRF.",
+      pdf: 'public/Rapport de stage M2_Mouhamed.pdf',
+      pdfLabel: 'Lire le rapport',
+    },
+  ],
+  en: [
+    {
+      type: 'Internship Report · Master II NLP',
+      title: 'Development of IMGT-NER-APP: Automated Named Entity Extraction for Monoclonal Antibodies',
+      venue: 'IMGT (IGH, CNRS), Montpellier, Université Marie et Louis Pasteur, Besançon',
+      year: '2025',
+      note: 'M2 end-of-internship report: design, training, and deployment of a BiLSTM-CRF model.',
+      pdf: 'public/Rapport de stage M2_Mouhamed.pdf',
+      pdfLabel: 'Read the report',
+    },
+  ],
 }
 
 const news = {
   fr: [
-    { date: 'Juil. 2025',      text: "Diplômé du Master II TAL — Université Marie et Louis Pasteur, Besançon, France" },
-    { date: 'Jan.–Juil. 2025', text: "Stage ingénieur NLP à l'IMGT (IGH, CNRS), Montpellier — développement de IMGT-NER-APP pour l'extraction automatique d'entités nommées dans les anticorps monoclonaux" },
-    { date: '2025',            text: "Développement de KNOW-SN RAG, système de recherche documentaire IA sur les documents officiels sénégalais" },
-    { date: '2025',            text: "Fine-tuning de Whisper Small sur 3 400 échantillons audio wolof — WER de 12,07 % après 500 steps d'entraînement" },
-    { date: '2024',            text: "Diplômé du Master II Data Science & NLP — Université Mohammed V, Rabat, Maroc" },
-    { date: 'Jan.–Juin 2024',  text: "Stage ingénieur NLP à l'Université Mohammed V, Rabat — conception de pipelines NLP multilingues (LSTM, BERT)" },
+    { date: 'Juil. 2025',      text: "Diplômé du Master II TAL, Université Marie et Louis Pasteur, Besançon, France" },
+    { date: 'Jan.–Juil. 2025', text: "Stage ingénieur NLP à l'IMGT (IGH, CNRS), Montpellier : développement de IMGT-NER-APP pour l'extraction automatique d'entités nommées dans les anticorps monoclonaux" },
+    { date: '2024',            text: "Diplômé du Master II Data Science & NLP, Université Mohammed V, Rabat, Maroc" },
+    { date: 'Jan.–Juin 2024',  text: "Stage ingénieur NLP à l'Université Mohammed V, Rabat : conception de pipelines NLP multilingues (LSTM, BERT)" },
   ],
   en: [
-    { date: 'Jul. 2025',      text: "Graduated with Master II in NLP — Université Marie et Louis Pasteur, Besançon, France" },
-    { date: 'Jan.–Jul. 2025', text: "NLP Engineering Internship at IMGT (IGH, CNRS), Montpellier — developed IMGT-NER-APP for automated named entity extraction in monoclonal antibody descriptions" },
-    { date: '2025',           text: "Developed KNOW-SN RAG, an AI-powered documentary search system for official Senegalese documents" },
-    { date: '2025',           text: "Fine-tuned Whisper Small on 3,400 Wolof audio samples — achieved 12.07% WER after 500 training steps" },
-    { date: '2024',           text: "Graduated with Master II in Data Science & NLP — Mohammed V University, Rabat, Morocco" },
-    { date: 'Jan.–Jun. 2024', text: "NLP Engineering Internship at Mohammed V University, Rabat — designed multilingual NLP pipelines (LSTM, BERT)" },
+    { date: 'Jul. 2025',      text: "Graduated with Master II in NLP, Université Marie et Louis Pasteur, Besançon, France" },
+    { date: 'Jan.–Jul. 2025', text: "NLP Engineering Internship at IMGT (IGH, CNRS), Montpellier: developed IMGT-NER-APP for automated named entity extraction in monoclonal antibody descriptions" },
+    { date: '2024',           text: "Graduated with Master II in Data Science & NLP, Mohammed V University, Rabat, Morocco" },
+    { date: 'Jan.–Jun. 2024', text: "NLP Engineering Internship at Mohammed V University, Rabat: designed multilingual NLP pipelines (LSTM, BERT)" },
   ],
 }
 
@@ -99,17 +209,6 @@ const projects = [
     liveUrl: 'https://rec-sys-frontend-523522346470.europe-west1.run.app/',
   },
   {
-    title: 'ASR Wolof — Whisper Fine-tuné', year: '2025',
-    category: { fr: 'Parole & NLP', en: 'Speech & NLP' },
-    description: {
-      fr: "Fine-tuning de Whisper Small sur 3 400 échantillons audio wolof, langue à faibles ressources. WER de 12,07 % obtenu après 500 steps d'entraînement.",
-      en: "Fine-tuning of Whisper Small on 3,400 Wolof audio samples, a low-resource language. 12.07% WER achieved after 500 training steps.",
-    },
-    technologies: ['Python', 'PyTorch', 'HuggingFace Transformers', 'Whisper', 'Gradio'],
-    liveUrl: 'https://huggingface.co/spaces/mbaye930/whisper-wolof-demo',
-    githubUrl: 'https://huggingface.co/mbaye930/whisper-small-wolof',
-  },
-  {
     title: 'AI Orchestrator', year: '2025',
     category: { fr: 'IA Générative', en: 'Generative AI' },
     description: {
@@ -133,22 +232,54 @@ const projects = [
 
 const education = {
   fr: [
-    { degree: 'Master II — Traitement Automatique des Langues', institution: 'Université Marie et Louis Pasteur, Besançon, France', year: '2025' },
-    { degree: 'Master II — Data Science & NLP',                institution: 'Université Mohammed V, Rabat, Maroc',                  year: '2024' },
-    { degree: 'Licence — Infolinguistique',                    institution: 'Université Cady Ayyad, Marrakech, Maroc',              year: '2022' },
-    { degree: 'Baccalauréat — Mention Très Bien',              institution: 'AAII, Kaolack, Sénégal',                              year: '2019' },
+    { degree: 'Master II en Traitement Automatique des Langues', institution: 'Université Marie et Louis Pasteur, Besançon, France', year: '2025' },
+    { degree: 'Master II en Data Science & NLP',                institution: 'Université Mohammed V, Rabat, Maroc',                  year: '2024' },
+    { degree: 'Licence en Infolinguistique',                    institution: 'Université Cady Ayyad, Marrakech, Maroc',              year: '2022' },
+    { degree: 'Baccalauréat, Mention Très Bien',                institution: 'AAII, Kaolack, Sénégal',                              year: '2019' },
   ],
   en: [
-    { degree: 'Master II — Natural Language Processing', institution: 'Université Marie et Louis Pasteur, Besançon, France', year: '2025' },
-    { degree: 'Master II — Data Science & NLP',          institution: 'Mohammed V University, Rabat, Morocco',              year: '2024' },
-    { degree: "Bachelor's — Infolinguistics",            institution: 'Cady Ayyad University, Marrakech, Morocco',          year: '2022' },
-    { degree: 'Baccalaureate — Highest Honours',         institution: 'AAII, Kaolack, Senegal',                            year: '2019' },
+    { degree: 'Master II in Natural Language Processing', institution: 'Université Marie et Louis Pasteur, Besançon, France', year: '2025' },
+    { degree: 'Master II in Data Science & NLP',          institution: 'Mohammed V University, Rabat, Morocco',              year: '2024' },
+    { degree: "Bachelor's in Infolinguistics",            institution: 'Cady Ayyad University, Marrakech, Morocco',          year: '2022' },
+    { degree: 'Baccalaureate, Highest Honours',           institution: 'AAII, Kaolack, Senegal',                            year: '2019' },
   ],
 }
 
 /* ── RENDU ── */
+function renderAbout(lang) {
+  const d = aboutData[lang]
+  document.getElementById('about-content').innerHTML = `
+    <p class="about-greeting">${d.greeting}</p>
+    <p class="about-intro">${d.intro}</p>
+    <p class="about-status-line">${d.status}</p>
+    <h3 class="about-interests-title">${d.interestsTitle}</h3>
+    ${d.interests.map(item => `
+      <div class="about-interest">
+        <h4 class="about-interest-title">${item.title}</h4>
+        <p class="about-interest-body">${item.body}</p>
+      </div>`).join('')}
+  `
+}
+
 function renderResearch(lang) {
-  document.getElementById('research-content').textContent = research[lang].join(', ')
+  document.getElementById('research-content').innerHTML = researchAxes[lang].map(axis => `
+    <div class="research-axis">
+      <h3 class="research-axis-title">${axis.title}</h3>
+      <p class="research-axis-body">${axis.body}</p>
+      <p class="research-tags">${axis.tags.map(t => `<span class="research-tag">${t}</span>`).join('')}</p>
+      <p class="research-project-ref">→ Projet : ${axis.projectRef}</p>
+    </div>`).join('')
+}
+
+function renderPublications(lang) {
+  document.getElementById('publications-list').innerHTML = publications[lang].map(pub => `
+    <div class="publication-entry">
+      <p class="pub-meta"><span class="pub-type">${pub.type}</span> <span class="pub-year">${pub.year}</span></p>
+      <p class="pub-title">${pub.title}</p>
+      ${pub.venue ? `<p class="pub-venue">${pub.venue}</p>` : ''}
+      <p class="pub-note">${pub.note}</p>
+      ${pub.pdf ? `<p><a href="${pub.pdf}" target="_blank" rel="noopener noreferrer" class="content-link">↓ ${pub.pdfLabel}</a></p>` : ''}
+    </div>`).join('')
 }
 
 function renderNews(lang) {
@@ -172,7 +303,7 @@ function renderProjects(lang) {
         <p class="project-header">
           <strong class="project-title">${p.title}</strong>
           <span class="project-year">${p.year}</span>
-          <span class="project-cat">— ${p.category[lang]}</span>
+          <span class="project-cat">· ${p.category[lang]}</span>
         </p>
         <p class="project-desc">${p.description[lang]}</p>
         <p class="project-techs">${p.technologies.join(' · ')}</p>
@@ -238,10 +369,11 @@ function setLang(lang) {
   bannerTitle.textContent = i18n[lang][`nav.${currentSection}`]
 
   /* Sections dynamiques */
-  renderResearch(lang)
+  renderAbout(lang)
   renderNews(lang)
   renderProjects(lang)
   renderEducation(lang)
+  renderPublications(lang)
 
   /* Boutons actifs */
   document.querySelectorAll('.lang-btn').forEach(btn => {

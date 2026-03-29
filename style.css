@@ -11,13 +11,13 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 17px; }
+html { font-size: 20px; }
 
 body {
   font-family: var(--font);
   color: var(--text);
   background: var(--bg);
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 /* ── BANNIÈRE ── */
@@ -243,6 +243,145 @@ h2 {
   color: #333;
 }
 .section-text.muted { color: var(--muted); font-style: italic; }
+
+/* ── À PROPOS ── */
+.about-greeting {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.about-intro {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #333;
+  margin-bottom: 0.4rem;
+}
+
+.about-status-line {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.about-interests-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.about-interest {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.about-interest:last-child { border-bottom: none; }
+
+.about-interest-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--nav-bg);
+  margin-bottom: 0.45rem;
+}
+
+.about-interest-body {
+  font-size: 0.93rem;
+  color: #444;
+  line-height: 1.75;
+}
+
+/* ── RECHERCHE ── */
+.research-axis {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid #efefef;
+}
+.research-axis:last-child { border-bottom: none; }
+
+.research-axis-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.45rem;
+}
+
+.research-axis-body {
+  font-size: 0.93rem;
+  color: #444;
+  line-height: 1.75;
+  margin-bottom: 0.55rem;
+}
+
+.research-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.research-tag {
+  font-size: 0.78rem;
+  font-family: 'Courier New', monospace;
+  background: #eef4f9;
+  color: var(--nav-bg);
+  border: 1px solid #c8dde9;
+  border-radius: 3px;
+  padding: 0.1rem 0.45rem;
+}
+
+.research-project-ref {
+  font-size: 0.84rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ── PUBLICATIONS ── */
+.publication-entry {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid #efefef;
+}
+.publication-entry:last-child { border-bottom: none; }
+
+.pub-meta {
+  margin-bottom: 0.3rem;
+}
+
+.pub-type {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--nav-bg);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pub-year {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-left: 0.5rem;
+}
+
+.pub-title {
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 0.25rem;
+}
+
+.pub-venue {
+  font-size: 0.88rem;
+  color: #555;
+  margin-bottom: 0.2rem;
+}
+
+.pub-note {
+  font-size: 0.84rem;
+  color: var(--muted);
+  font-style: italic;
+}
 
 /* ── ACTUALITÉS ── */
 .news-list { list-style: none; margin-top: 0.5rem; }
