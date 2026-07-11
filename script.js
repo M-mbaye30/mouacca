@@ -1,387 +1,660 @@
-/* ── TRADUCTIONS ── */
-const i18n = {
+/* ══════════════════════════════════════════════════
+   Mouhamed Mbaye — Page Académique
+   Script partagé : layout, i18n, données, HAL API
+   ══════════════════════════════════════════════════ */
+
+let currentLang = localStorage.getItem('lang') || 'fr'
+let currentTheme = localStorage.getItem('theme') || 'light'
+document.documentElement.setAttribute('data-theme', currentTheme)
+
+const cvUrl = {
+  fr: 'public/CvTAL.pdf',
+  en: 'public/CvTAL.pdf' // Modifiable par l'utilisateur plus tard (ex: 'public/CvTAL_EN.pdf')
+}
+
+const metaData = {
   fr: {
-    'nav.about': 'À propos', 'nav.research': 'Recherche', 'nav.news': 'Actualités',
-    'nav.projects': 'Projets', 'nav.publications': 'Publications',
-    'nav.education': 'Formation', 'nav.contact': 'Contact',
-    'banner.welcome': 'Bienvenue sur la page web personnelle de',
-    'about.title': 'À propos',
-    'about.status': "À la recherche d'un contrat doctoral",
-    'about.lang-title': 'Langues',
-    'about.languages': "Français : Courant\nAnglais : Professionnel\nArabe : Courant\nWolof : Natif",
-    'about.link.email': 'E-mail', 'about.link.cv': 'Télécharger le CV',
-    'research.title': 'Axes de recherche',
-    'news.title': 'Actualités',
-    'projects.title': 'Projets', 'projects.live': 'Site en ligne', 'projects.code': 'Code',
-    'publications.title': 'Publications',
-    'education.title': 'Formation',
-    'contact.title': 'Contact',
-    'contact.text': "N'hésitez pas à me contacter pour toute opportunité de collaboration, de recherche ou de contrat doctoral.",
+    accueil: { title: "Mouhamed Mbaye - Accueil", desc: "Page académique de Mouhamed Mbaye, Ingénieur en TAL/NLP." },
+    recherche: { title: "Mouhamed Mbaye - Recherche", desc: "Axes de recherche de Mouhamed Mbaye : Recherche et extraction de connaissances, langues à faibles ressources, GenAI." },
+    publications: { title: "Mouhamed Mbaye - Publications", desc: "Publications et rapports de recherche de Mouhamed Mbaye. Index HAL et ORCID." },
+    logiciels: { title: "Mouhamed Mbaye - Logiciels", desc: "Logiciels et applications développés par Mouhamed Mbaye : AI Orchestrator, KNOW-SN RAG, IMGT-NER-APP." },
+    formation: { title: "Mouhamed Mbaye - Formation", desc: "Parcours de formation de Mouhamed Mbaye : Master TAL Besançon, Master Data Science-NLP Rabat, Licence Linguistique Marrakech." },
   },
   en: {
-    'nav.about': 'About', 'nav.research': 'Research', 'nav.news': 'News',
-    'nav.projects': 'Projects', 'nav.publications': 'Publications',
-    'nav.education': 'Education', 'nav.contact': 'Contact',
-    'banner.welcome': 'Welcome to the personal webpage of',
-    'about.title': 'About',
-    'about.status': 'Seeking a doctoral contract',
-    'about.lang-title': 'Languages',
-    'about.languages': "French : Fluent\nEnglish : Professional\nArabic : Fluent\nWolof : Native",
-    'about.link.email': 'E-mail', 'about.link.cv': 'Download CV',
-    'research.title': 'Research',
-    'news.title': 'News',
-    'projects.title': 'Projects', 'projects.live': 'Live site', 'projects.code': 'Code',
-    'publications.title': 'Publications',
-    'education.title': 'Education',
-    'contact.title': 'Contact',
-    'contact.text': 'Feel free to reach out for any collaboration opportunity, research inquiry, or doctoral contract.',
+    accueil: { title: "Mouhamed Mbaye - Home", desc: "Academic webpage of Mouhamed Mbaye, NLP/TAL Engineer." },
+    recherche: { title: "Mouhamed Mbaye - Research", desc: "Research interests of Mouhamed Mbaye: Information retrieval and extraction, low-resource languages, GenAI." },
+    publications: { title: "Mouhamed Mbaye - Publications", desc: "Publications and research reports of Mouhamed Mbaye. HAL and ORCID index." },
+    logiciels: { title: "Mouhamed Mbaye - Software", desc: "Software and applications developed by Mouhamed Mbaye: AI Orchestrator, KNOW-SN RAG, IMGT-NER-APP." },
+    formation: { title: "Mouhamed Mbaye - Education", desc: "Education path of Mouhamed Mbaye: Master NLP Besançon, Master Data Science-NLP Rabat, Bachelor Linguistics Marrakech." },
+  }
+}
+
+/* ══════════════════════════════════════
+   TRADUCTIONS
+   ══════════════════════════════════════ */
+const i18n = {
+  fr: {
+    'header.welcome': 'Bienvenue sur ma page personnelle',
+    'nav.accueil': 'Accueil',
+    'nav.recherche': 'Recherche',
+    'nav.publications': 'Publications',
+    'nav.logiciels': 'Logiciels',
+    'nav.formation': 'Formation',
+    'sidebar.status': "Ingénieur TAL @ Galsen AI Lab",
+    'sidebar.lang-title': 'Langues',
+    'sidebar.contact-title': 'Profils & Contact',
+    'sidebar.news-title': 'Actualités',
+    'link.email': 'E-mail',
+    'link.cv': 'Télécharger le CV',
+    'footer.affiliations-title': 'Laboratoire & Affiliation',
+    'footer.affiliations-text': 'Galsen AI Lab<br>Dakar, Sénégal',
+    'footer.contact-title': 'Contact',
+    'footer.contact-text': 'mouhamedmbaye371@gmail.com',
+  },
+  en: {
+    'header.welcome': 'Welcome to my personal page',
+    'nav.accueil': 'Home',
+    'nav.recherche': 'Research',
+    'nav.publications': 'Publications',
+    'nav.logiciels': 'Software',
+    'nav.formation': 'Education',
+    'sidebar.status': "NLP Engineer @ Galsen AI Lab",
+    'sidebar.lang-title': 'Languages',
+    'sidebar.contact-title': 'Profiles & Contact',
+    'sidebar.news-title': 'News',
+    'link.email': 'Email',
+    'link.cv': 'Download CV',
+    'footer.affiliations-title': 'Laboratory & Affiliation',
+    'footer.affiliations-text': 'Galsen AI Lab<br>Dakar, Senegal',
+    'footer.contact-title': 'Contact',
+    'footer.contact-text': 'mouhamedmbaye371@gmail.com',
   },
 }
 
-/* ── DONNÉES ── */
+/* ══════════════════════════════════════
+   DONNÉES
+   ══════════════════════════════════════ */
+
 const aboutData = {
   fr: {
     greeting: 'Bonjour,',
-    intro: "Je suis Mouhamed Mbaye, ingénieur en Traitement Automatique des Langues, diplômé en 2025 de l'Université Marie et Louis Pasteur de Besançon.",
-    status: "Je suis actuellement à la recherche d'un contrat doctoral dans le domaine du TAL.",
+    intro: "Je suis Mouhamed Mbaye, ingénieur en Traitement Automatique des Langues (TAL / NLP) et membre chercheur au sein de Galsen AI Lab.",
+    motivation: "Je suis passionné par la R&D en TAL, notamment dans la recherche et l'extraction d'information, la génération augmentée par récupération (RAG), et le traitement des langues à faibles ressources.",
     interestsTitle: 'Intérêts de recherche',
+    affiliationTitle: 'Affiliation & Communauté',
+    affiliationName: "Galsen AI Lab",
+    affiliationRole: "Membre & Chercheur",
+    affiliationDesc: "Galsen AI Lab est une communauté et un laboratoire de R&D ouvert, dédié au développement, à la vulgarisation et à la démocratisation des technologies d'intelligence artificielle en Afrique de l'Ouest, notamment sur le TAL pour les langues locales sénégalaises (comme le wolof).",
+    webLabel: "Site web ↗",
+    contactTitle: 'Contact',
+    contactText: "Vous pouvez me contacter pour toute question relative à mes travaux, à une collaboration, ou à une opportunité.",
     interests: [
-      {
-        title: "Recherche et Extraction d'Information",
-        body: "La recherche d'information (IR) vise à retrouver les documents pertinents au sein de grandes collections de données. L'extraction d'information (IE) consiste à identifier et structurer automatiquement des éléments précis dans du texte : entités nommées, relations entre entités, événements ou attributs clés. Ces tâches peuvent être abordées par des approches classiques de Machine Learning (CRF, SVM), des architectures Transformers (BERT, RoBERTa), ou des méthodes zero-shot et few-shot avec les LLMs permettant des résultats compétitifs même avec très peu de données annotées.",
-      },
-      {
-        title: "Exploitation des grands modèles de langue (LLMs)",
-        body: "Je m'intéresse en particulier à la Génération Augmentée par Récupération (RAG) : une approche qui enrichit les réponses d'un LLM en les ancrant dans des sources documentaires externes, pour des réponses plus fiables et vérifiables. Plus largement, je m'intéresse aux méthodes d'adaptation et de spécialisation des LLMs pour des domaines et des tâches spécifiques.",
-      },
-      {
-        title: "Traitement des langues à faibles ressources",
-        body: "Les langues dites « à faibles ressources » disposent de peu de données numériques (corpus annotés, lexiques, modèles pré-entraînés) par rapport aux langues dominantes. Locuteur natif du wolof, je suis convaincu que les avancées en TAL doivent aussi profiter à ces langues peu dotées. J'ai notamment travaillé sur la reconnaissance vocale du wolof et sur un système RAG dédié aux documents officiels sénégalais.",
-      },
+      { title: "Recherche et Extraction d'Information", body: "La Reconnaissance d'Entités Nommées et l'extraction de relations dans les textes, la liaison d'entités..." },
+      { title: "Génération Augmentée par Récupération (RAG)", body: "langchain, langgraph, chromadb....." },
+      { title: "Traitement des langues à faibles ressources", body: "Constitution de ressources linguistiques pour le wolof." }
     ],
   },
   en: {
     greeting: 'Hello,',
-    intro: "I am Mouhamed Mbaye, a Natural Language Processing engineer, graduated in 2025 from Université Marie et Louis Pasteur in Besançon.",
-    status: "I am currently seeking a doctoral contract in the field of NLP.",
+    intro: "I am Mouhamed Mbaye, a Natural Language Processing (NLP) engineer and research member at Galsen AI Lab.",
+    motivation: "I am passionate about R&D in NLP, particularly in information retrieval and extraction, retrieval-augmented generation (RAG), and low-resource language processing.",
     interestsTitle: 'Research Interests',
+    affiliationTitle: 'Affiliation & Community',
+    affiliationName: "Galsen AI Lab",
+    affiliationRole: "Member & Researcher",
+    affiliationDesc: "Galsen AI Lab is an open community and R&D lab dedicated to building and popularizing an artificial intelligence ecosystem for West Africa, with a specific focus on NLP for Senegalese languages (such as Wolof).",
+    webLabel: "Website ↗",
+    contactTitle: 'Contact',
+    contactText: 'Feel free to contact me regarding my work, a collaboration, or an opportunity.',
     interests: [
-      {
-        title: "Information Retrieval and Extraction",
-        body: "Information Retrieval (IR) aims to identify relevant documents within large data collections. Information Extraction (IE) consists of automatically identifying and structuring specific elements in text: named entities, entity relations, events, or key attributes. These tasks can be tackled using classical Machine Learning approaches (CRF, SVM), Transformer architectures (BERT, RoBERTa), or zero-shot and few-shot methods with LLMs, yielding competitive results even with very little annotated data.",
-      },
-      {
-        title: "Leveraging Large Language Models (LLMs)",
-        body: "I am particularly interested in Retrieval-Augmented Generation (RAG): an approach that enhances LLM responses by grounding them in external documentary sources, producing more reliable and verifiable answers. More broadly, I am interested in methods for adapting and specialising LLMs for specific domains and tasks.",
-      },
-      {
-        title: "Low-Resource Language Processing",
-        body: "Low-resource languages have limited digital data (annotated corpora, lexicons, pre-trained models) compared to dominant languages. As a native Wolof speaker, I believe that NLP advances must also benefit these underserved languages. I have worked on automatic speech recognition for Wolof and on a RAG system dedicated to official Senegalese documents.",
-      },
+      { title: "Information Retrieval and Extraction", body: "Named Entity Recognition and relation extraction in texts, entity linking..." },
+      { title: "Retrieval-Augmented Generation (RAG)", body: "langchain, langgraph, chromadb....." },
+      { title: "Low-Resource NLP", body: "Building linguistic resources for Wolof." }
     ],
   },
 }
 
-const researchAxes = {
-  fr: [
-    {
-      title: 'Langues à faibles ressources & traitement de la parole',
-      body: "Les langues africaines, dont le wolof ma langue maternelle, restent largement sous-représentées dans les ressources numériques. Mes travaux visent à construire des modèles adaptés à ces langues : fine-tuning de Whisper Small sur 3 400 échantillons wolof annotés manuellement (WER de 12,07 % après 500 steps), constitution de corpus et développement de pipelines de bout en bout pour des langues peu dotées.",
-      tags: ['ASR', 'Wolof', 'Whisper', 'Annotation', 'HuggingFace'],
-      projectRef: 'ASR Wolof — Whisper Fine-tuné',
-    },
-    {
-      title: "Génération Augmentée par Récupération (RAG) & extraction d'information",
-      body: "Comment rendre un corpus documentaire interrogeable par des non-experts ? C'est la question centrale qui a guidé KNOW-SN RAG, un système combinant recherche vectorielle (ChromaDB) et génération contextualisée (GPT-4o-mini) sur les documents officiels sénégalais. Cette problématique rejoint également IMGT-NER-APP, où la Reconnaissance d'Entités Nommées dans un domaine très contraint (la nomenclature DCI des anticorps monoclonaux) exige une précision terminologique élevée.",
-      tags: ['RAG', 'NER', 'ChromaDB', 'LangChain', 'BiLSTM-CRF'],
-      projectRef: 'KNOW-SN RAG · IMGT-NER-APP',
-    },
-    {
-      title: 'Grands Modèles de Langue (LLMs) & systèmes multi-agents',
-      body: "Les LLMs ouvrent des possibilités inédites pour l'analyse documentaire et le raisonnement automatisé. Je m'intéresse à leur déploiement local et souverain (Ollama, Llama 3.2) pour des contextes à faible connectivité ou exigeant la confidentialité des données, ainsi qu'à leur orchestration dans des architectures multi-agents autonomes.",
-      tags: ['LLMs', 'Ollama', 'Llama 3.2', 'Multi-agents', 'Souveraineté des données'],
-      projectRef: 'AI Orchestrator',
-    },
-    {
-      title: 'NLP biomédical & terminologie spécialisée',
-      body: "Le NLP médical pose des défis spécifiques : vocabulaire très contraint, données rares et étiquetage coûteux. Mon stage à l'IMGT (IGH, CNRS) m'a permis d'explorer ces enjeux à travers la conception de modèles BiLSTM-CRF pour l'extraction automatique d'entités dans les descriptions d'anticorps monoclonaux, en collaboration avec les équipes de l'OMS.",
-      tags: ['NLP Biomédical', 'NER', 'BiLSTM-CRF', 'CNRS', 'spaCy'],
-      projectRef: 'IMGT-NER-APP',
-    },
-  ],
-  en: [
-    {
-      title: 'Low-Resource Languages & Speech Processing',
-      body: "African languages, including Wolof my mother tongue, remain largely underrepresented in digital resources. My work aims to build models adapted to these languages: fine-tuning Whisper Small on 3,400 manually annotated Wolof samples (12.07% WER after 500 training steps), building corpora, and developing end-to-end pipelines for underserved languages.",
-      tags: ['ASR', 'Wolof', 'Whisper', 'Annotation', 'HuggingFace'],
-      projectRef: 'ASR Wolof — Fine-tuned Whisper',
-    },
-    {
-      title: 'Retrieval-Augmented Generation (RAG) & Information Extraction',
-      body: "How can a documentary corpus be made queryable by non-experts? This is the central question behind KNOW-SN RAG, a system combining vector search (ChromaDB) and contextualised generation (GPT-4o-mini) on official Senegalese documents. The same challenge underpins IMGT-NER-APP, where Named Entity Recognition in a highly constrained domain (monoclonal antibody INN nomenclature) demands high terminological precision.",
-      tags: ['RAG', 'NER', 'ChromaDB', 'LangChain', 'BiLSTM-CRF'],
-      projectRef: 'KNOW-SN RAG · IMGT-NER-APP',
-    },
-    {
-      title: 'Large Language Models (LLMs) & Multi-Agent Systems',
-      body: "LLMs open unprecedented possibilities for document analysis and automated reasoning. My interest lies in their local and sovereign deployment (Ollama, Llama 3.2) for low-connectivity or data-confidential contexts, as well as their orchestration within autonomous multi-agent architectures.",
-      tags: ['LLMs', 'Ollama', 'Llama 3.2', 'Multi-agents', 'Data Sovereignty'],
-      projectRef: 'AI Orchestrator',
-    },
-    {
-      title: 'Biomedical NLP & Specialised Terminology',
-      body: "Medical NLP poses specific challenges: highly constrained vocabulary, scarce data, and costly annotation. My internship at IMGT (IGH, CNRS) allowed me to explore these issues through the design of BiLSTM-CRF models for automated entity extraction in monoclonal antibody descriptions, in collaboration with WHO teams.",
-      tags: ['Biomedical NLP', 'NER', 'BiLSTM-CRF', 'CNRS', 'spaCy'],
-      projectRef: 'IMGT-NER-APP',
-    },
-  ],
-}
-
-const publications = {
-  fr: [
-    {
-      type: 'Rapport de stage · Master II TAL',
-      title: "Développement de IMGT-NER-APP : extraction automatique d'entités nommées pour les anticorps monoclonaux",
-      venue: 'IMGT (IGH, CNRS), Montpellier, Université Marie et Louis Pasteur, Besançon',
-      year: '2025',
-      note: "Rapport de fin de stage de M2 : conception, entraînement et déploiement d'un modèle BiLSTM-CRF.",
-      pdf: 'public/Rapport de stage M2_Mouhamed.pdf',
-      pdfLabel: 'Lire le rapport',
-    },
-  ],
-  en: [
-    {
-      type: 'Internship Report · Master II NLP',
-      title: 'Development of IMGT-NER-APP: Automated Named Entity Extraction for Monoclonal Antibodies',
-      venue: 'IMGT (IGH, CNRS), Montpellier, Université Marie et Louis Pasteur, Besançon',
-      year: '2025',
-      note: 'M2 end-of-internship report: design, training, and deployment of a BiLSTM-CRF model.',
-      pdf: 'public/Rapport de stage M2_Mouhamed.pdf',
-      pdfLabel: 'Read the report',
-    },
-  ],
+const languagesData = {
+  fr: "Wolof : Natif\nFrançais : Courant\nArabe : Courant\nAnglais : Professionnel",
+  en: "Wolof: Native\nFrench: Fluent\nArabic: Fluent\nEnglish: Professional",
 }
 
 const news = {
   fr: [
-    { date: 'Juil. 2025',      text: "Diplômé du Master II TAL, Université Marie et Louis Pasteur, Besançon, France" },
-    { date: 'Jan.–Juil. 2025', text: "Stage ingénieur NLP à l'IMGT (IGH, CNRS), Montpellier : développement de IMGT-NER-APP pour l'extraction automatique d'entités nommées dans les anticorps monoclonaux" },
-    { date: '2024',            text: "Diplômé du Master II Data Science & NLP, Université Mohammed V, Rabat, Maroc" },
-    { date: 'Jan.–Juin 2024',  text: "Stage ingénieur NLP à l'Université Mohammed V, Rabat : conception de pipelines NLP multilingues (LSTM, BERT)" },
+    { date: 'Juil. 2026', text: "Intégration de Galsen AI Lab en tant que chercheur et membre actif sur le pôle TAL." },
+    { date: 'Juil. 2025', text: "Diplômé du Master 2 TAL, Université Marie et Louis Pasteur, Besançon." },
+    { date: 'Jan.–Juil. 2025', text: "Stage de recherche NLP au CNRS (IMGT), Montpellier : IMGT-NER-APP." },
+    { date: 'Juin 2024', text: "Diplômé du Master 2 Data Science-NLP, Université Mohammed V, Rabat." },
+    { date: 'Jan.–Juin 2024', text: "Stage Data Scientist-NLP à l'Université Mohammed V : pipelines multilingues." },
   ],
   en: [
-    { date: 'Jul. 2025',      text: "Graduated with Master II in NLP, Université Marie et Louis Pasteur, Besançon, France" },
-    { date: 'Jan.–Jul. 2025', text: "NLP Engineering Internship at IMGT (IGH, CNRS), Montpellier: developed IMGT-NER-APP for automated named entity extraction in monoclonal antibody descriptions" },
-    { date: '2024',           text: "Graduated with Master II in Data Science & NLP, Mohammed V University, Rabat, Morocco" },
-    { date: 'Jan.–Jun. 2024', text: "NLP Engineering Internship at Mohammed V University, Rabat: designed multilingual NLP pipelines (LSTM, BERT)" },
+    { date: 'Jul. 2026', text: "Joined Galsen AI Lab as a member and active researcher on the NLP track." },
+    { date: 'Jul. 2025', text: "Graduated - Master II NLP, Université Marie et Louis Pasteur, Besançon." },
+    { date: 'Jan.–Jul. 2025', text: "NLP Research Internship at CNRS (IMGT), Montpellier: IMGT-NER-APP." },
+    { date: 'Jun. 2024', text: "Graduated - Master 2 Data Science-NLP, Mohammed V University, Rabat." },
+    { date: 'Jan.–Jun. 2024', text: "Data Scientist-NLP Internship at Mohammed V University: multilingual pipelines." },
   ],
 }
 
-const projects = [
-  {
-    title: 'KNOW-SN RAG', year: '2025',
-    category: { fr: 'IA Générative', en: 'Generative AI' },
-    description: {
-      fr: "Système de recherche documentaire par IA utilisant la technologie RAG pour interroger les documents officiels du Sénégal. Combine recherche vectorielle (ChromaDB) et génération de texte (GPT-4o-mini) pour fournir des réponses précises et contextualisées.",
-      en: "AI-powered documentary search system using RAG technology to query official Senegalese documents. Combines vector search (ChromaDB) and text generation (GPT-4o-mini) to provide precise, contextualised answers.",
+const researchAxes = {
+  fr: [
+    { 
+      title: "Recherche et Extraction d'Information", 
+      body: "Cet axe de recherche se concentre sur l'identification, la structuration et la désambiguïsation de l'information contenue dans les textes, qu'ils soient de domaine général ou hautement spécialisés (comme le domaine biomédical ou juridique). Les problématiques abordées incluent la Reconnaissance d'Entités Nommées (NER), l'extraction de relations entre ces entités, ainsi que la liaison d'entités (Entity Linking), en s'appuyant sur des architectures neuronales profondes et des grands modèles de langue (LLMs).", 
+      tags: ['NER', 'Extraction de relations', 'Entity Linking', 'Extraction d\'information']
     },
-    technologies: ['Python', 'FastAPI', 'ChromaDB', 'LangChain', 'GPT-4o-mini', 'Streamlit', 'Sentence Transformers', 'Docker'],
-    liveUrl: 'https://know-sn-rag-861961046598.europe-west1.run.app/',
-  },
-  {
-    title: 'IMGT-NER-APP', year: '2025',
-    category: { fr: 'NLP Biomédical', en: 'Biomedical NLP' },
-    description: {
-      fr: "Outil d'extraction automatique d'entités nommées pour les descriptions d'anticorps monoclonaux, spécialisé dans la nomenclature DCI de l'OMS. Utilise des modèles BiLSTM-CRF pour identifier les chaînes lourdes/légères, espèces d'origine et modificateurs structuraux.",
-      en: "Automated named entity extraction tool for monoclonal antibody descriptions, specialised in WHO INN nomenclature. Uses BiLSTM-CRF models to identify heavy/light chains, species origin, and structural modifiers.",
+    { 
+      title: "Génération Augmentée par Récupération (RAG)", 
+      body: "La recherche autour du RAG vise à résoudre les limites des modèles de langue génératifs, telles que les hallucinations et le manque de connaissances spécifiques. Les travaux dans ce domaine explorent l'optimisation des pipelines de recherche sémantique vectorielle, le chaînage d'agents autonomes, et la garantie de la traçabilité de l'information pour rendre les systèmes de question-réponse plus fiables et interprétables sur des bases documentaires complexes.", 
+      tags: ['RAG', 'Recherche sémantique', 'LLMs', 'Systèmes de Q/A']
     },
-    technologies: ['Python', 'Streamlit', 'BiLSTM-CRF', 'spaCy', 'TensorFlow', 'scikit-learn', 'Label-Studio'],
-    liveUrl: 'https://www.imgt.org/nerapp/',
-  },
-  {
-    title: 'UniRec-SN', year: '2025',
-    category: { fr: 'IA & Recommandation', en: 'AI & Recommendation' },
-    description: {
-      fr: "Système de recommandation universitaire par IA pour le Sénégal. Intègre recherche sémantique (pgvector), analyse de profils PDF et algorithme de scoring hybride. Données synthétiques générées avec NVIDIA NeMo Data Designer.",
-      en: "AI-driven university recommendation system for Senegal. Features semantic search (pgvector), PDF profile analysis, and a hybrid scoring algorithm. Synthetic datasets generated with NVIDIA NeMo Data Designer.",
+    { 
+      title: "Traitement des langues à faibles ressources", 
+      body: "Le développement des technologies du langage pour les langues peu dotées, avec un intérêt particulier pour le wolof et les langues africaines, nécessite de repenser les approches standards gourmandes en données. Cet axe englobe la création de nouvelles ressources linguistiques fondamentales (corpus parallèles, datasets pour la liaison d'entités, données vocales annotées) et l'adaptation de modèles (fine-tuning, approches zero-shot) pour rendre le NLP accessible à ces langues.", 
+      tags: ['Wolof', 'Corpus parallèles', 'Langues peu dotées', 'Création de ressources']
     },
-    technologies: ['Python', 'FastAPI', 'Docker', 'GCP', 'PostgreSQL', 'pgvector', 'Sentence-Transformers', 'React'],
-    liveUrl: 'https://rec-sys-frontend-523522346470.europe-west1.run.app/',
-  },
-  {
-    title: 'AI Orchestrator', year: '2025',
-    category: { fr: 'IA Générative', en: 'Generative AI' },
-    description: {
-      fr: "Système multi-agents autonome auto-hébergé pour l'analyse documentaire et le raisonnement stratégique. Exploite des LLMs locaux (Ollama) pour garantir la souveraineté des données.",
-      en: "Self-hosted autonomous multi-agent system for document analysis and strategic reasoning. Leverages local LLMs (Ollama) to ensure data sovereignty.",
+  ],
+  en: [
+    { 
+      title: "Information Retrieval and Extraction", 
+      body: "This research axis focuses on identifying, structuring, and disambiguating information within both open-domain and highly specialized texts (such as biomedical or legal documents). Core challenges addressed include Named Entity Recognition (NER), relation extraction, and entity linking, leveraging deep neural architectures and Large Language Models (LLMs).", 
+      tags: ['NER', 'Relation Extraction', 'Entity Linking', 'Information Extraction']
     },
-    technologies: ['Python', 'Ollama', 'Llama 3.2', 'Streamlit', 'PyPDF'],
+    { 
+      title: "Retrieval-Augmented Generation (RAG)", 
+      body: "Research in RAG aims to mitigate the limitations of generative language models, such as hallucinations and lack of domain-specific knowledge. Work in this area explores the optimization of semantic vector search pipelines, autonomous agent chaining, and information provenance tracking to build reliable and interpretable question-answering systems over complex document bases.", 
+      tags: ['RAG', 'Semantic Search', 'LLMs', 'Q/A Systems']
+    },
+    { 
+      title: "Low-Resource Language Processing", 
+      body: "Developing language technologies for under-resourced languages, with a particular focus on Wolof and African languages, requires rethinking standard data-heavy approaches. This axis involves the creation of foundational linguistic resources (parallel corpora, entity linking datasets, annotated speech data) and the adaptation of models (fine-tuning, zero-shot learning) to make NLP accessible to these languages.", 
+      tags: ['Wolof', 'Parallel Corpora', 'Low-Resource', 'Resource Creation']
+    },
+  ],
+}
+
+const publications = [
+  {
+    authors: 'Mouhamed Mbaye',
+    title: { fr: "Développement de IMGT-NER-APP : extraction automatique d'entités nommées pour les anticorps monoclonaux", en: "Development of IMGT-NER-APP: Automated Named Entity Extraction for Monoclonal Antibodies" },
+    type: { fr: 'Rapport de stage de Master II TAL', en: 'Master II NLP End-of-Internship Report' },
+    venue: 'IMGT (IGH, CNRS) - Université Marie et Louis Pasteur, Besançon',
+    year: '2025',
+    pdf: 'public/Rapport de stage M2_Mouhamed.pdf',
+    abstract: { fr: "Ce rapport présente le développement de IMGT-NER-APP, une application d'extraction automatique d'entités nommées spécialisée dans la nomenclature de l'OMS (DCI) pour les anticorps monoclonaux, utilisant des architectures d'apprentissage profond BiLSTM-CRF et développée en collaboration avec le CNRS.", en: "This report presents the development of IMGT-NER-APP, an automated named entity extraction tool specialized in WHO INN nomenclature for monoclonal antibodies, leveraging BiLSTM-CRF sequence labeling models in collaboration with CNRS." }
+  }
+]
+
+const software = [
+  {
+    title: 'AI Orchestrator',
+    description: {
+      fr: "Système multi-agents autonome pour le raisonnement et l'analyse documentaire intelligente.",
+      en: "Autonomous multi-agent system for intelligent document analysis and reasoning."
+    },
+    technologies: ['Python', 'LangGraph', 'Ollama', 'Llama 3'],
+    liveUrl: 'https://agentic-ai-orchestrator-181631404910.europe-west1.run.app/',
     githubUrl: 'https://github.com/M-mbaye30/Perso_AI_AGENT',
   },
   {
-    title: 'Library Management System', year: '2023',
-    category: { fr: 'Gestion de données', en: 'Data Management' },
-    description: {
-      fr: "Application de gestion centralisée de bibliothèques, livres et prix internationaux. Interface CRUD complète et recherche avancée.",
-      en: "Centralised library management application for books, libraries, and international awards. Full CRUD interface with advanced search.",
-    },
-    technologies: ['Flask', 'SQLite3', 'HTML', 'Jinja2'],
-    githubUrl: 'https://github.com/M-mbaye30/myprojectsqlite',
+    title: 'KNOW-SN RAG',
+    description: { fr: "Système de question-réponse sur les textes législatifs sénégalais. Recherche sémantique vectorielle (ChromaDB) combinée à GPT-4o-mini.", en: "Q&A system for Senegalese legislative texts. Semantic vector search (ChromaDB) combined with GPT-4o-mini." },
+    technologies: ['Python', 'ChromaDB', 'LangChain', 'FastAPI'],
+    liveUrl: 'https://know-sn-rag-861961046598.europe-west1.run.app/',
+    githubUrl: null,
+  },
+  {
+    title: 'IMGT-NER-APP',
+    description: { fr: "Application d'extraction automatique d'entités nommées pour les anticorps monoclonaux, spécialisée dans la nomenclature DCI de l'OMS.", en: "Automated named entity extraction tool for monoclonal antibodies, specialized in WHO INN nomenclature." },
+    technologies: ['Python', 'BiLSTM-CRF', 'spaCy', 'TensorFlow'],
+    liveUrl: 'https://www.imgt.org/nerapp/',
+    githubUrl: null,
+  },
+]
+
+const datasets = [
+  {
+    title: { fr: 'Wolof Entity Linking', en: 'Wolof Entity Linking' },
+    description: { fr: "Dataset pour la tâche de liaison d'entités (Entity Linking) en langue wolof.", en: "Dataset for the Entity Linking task in the Wolof language." },
+    type: { fr: 'Dataset NLP', en: 'NLP Dataset' },
+    url: 'https://huggingface.co/datasets/mbaye930/WolofEntityLinking',
+    tags: ['Wolof', 'Entity Linking', 'NER'],
+  },
+  {
+    title: { fr: 'Wolof-Arabic Parallel Corpus', en: 'Wolof-Arabic Parallel Corpus' },
+    description: { fr: "Corpus parallèle wolof-arabe pour l'entraînement de modèles de traduction automatique et l'alignement de textes.", en: "Wolof-Arabic parallel corpus for training machine translation models and text alignment." },
+    type: { fr: 'Corpus parallèle', en: 'Parallel corpus' },
+    url: 'https://huggingface.co/datasets/mbaye930/wolof-arabic-parallel-corpus',
+    tags: ['Wolof', 'Arabic', 'Parallel Corpus', 'Machine Translation'],
   },
 ]
 
 const education = {
   fr: [
-    { degree: 'Master II en Traitement Automatique des Langues', institution: 'Université Marie et Louis Pasteur, Besançon, France', year: '2025' },
-    { degree: 'Master II en Data Science & NLP',                institution: 'Université Mohammed V, Rabat, Maroc',                  year: '2024' },
-    { degree: 'Licence en Infolinguistique',                    institution: 'Université Cady Ayyad, Marrakech, Maroc',              year: '2022' },
-    { degree: 'Baccalauréat, Mention Très Bien',                institution: 'AAII, Kaolack, Sénégal',                              year: '2019' },
+    { year: '2025', degree: 'Master 2 Traitement Automatique des Langues (TAL)', institution: "Université Marie et Louis Pasteur, Besançon, France" },
+    { year: '2024', degree: 'Master 2 Data Science-NLP', institution: "Université Mohammed V, Rabat, Maroc" },
+    { year: '2022', degree: "Licence de Linguistique", institution: "Université Cady Ayaad de Marrakech, Maroc" },
   ],
   en: [
-    { degree: 'Master II in Natural Language Processing', institution: 'Université Marie et Louis Pasteur, Besançon, France', year: '2025' },
-    { degree: 'Master II in Data Science & NLP',          institution: 'Mohammed V University, Rabat, Morocco',              year: '2024' },
-    { degree: "Bachelor's in Infolinguistics",            institution: 'Cady Ayyad University, Marrakech, Morocco',          year: '2022' },
-    { degree: 'Baccalaureate, Highest Honours',           institution: 'AAII, Kaolack, Senegal',                            year: '2019' },
+    { year: '2025', degree: 'Master 2 in Natural Language Processing (NLP)', institution: "Marie and Louis Pasteur University, Besançon, France" },
+    { year: '2024', degree: 'Master 2 in Data Science & NLP', institution: "Mohammed V University, Rabat, Morocco" },
+    { year: '2022', degree: "Bachelor's in Linguistics", institution: "Cady Ayaad University, Marrakech, Morocco" },
   ],
 }
 
-/* ── RENDU ── */
-function renderAbout(lang) {
+
+/* ══════════════════════════════════════
+   LAYOUT BUILDER - Shared across pages
+   ══════════════════════════════════════ */
+
+const navPages = [
+  { id: 'accueil', file: 'index.html' },
+  { id: 'recherche', file: 'recherche.html' },
+  { id: 'publications', file: 'publications.html' },
+  { id: 'logiciels', file: 'logiciels.html' },
+  { id: 'formation', file: 'formation.html' },
+]
+
+function buildLayout(activePageId) {
+  const lang = currentLang
+
+  /* Document Meta (Title & Description) */
+  if (metaData[lang] && metaData[lang][activePageId]) {
+    document.title = metaData[lang][activePageId].title
+    const metaDesc = document.querySelector('meta[name="description"]')
+    if (metaDesc) {
+      metaDesc.setAttribute('content', metaData[lang][activePageId].desc)
+    }
+  }
+
+  /* Header */
+  const headerEl = document.getElementById('site-header')
+  if (headerEl) {
+    headerEl.innerHTML = `
+      <div>
+        <h2 id="header-welcome">${i18n[lang]['header.welcome']}</h2>
+        <h1>Mouhamed Mbaye</h1>
+      </div>
+    `
+  }
+
+  /* Navbar */
+  const navEl = document.getElementById('site-nav')
+  if (navEl) {
+    navEl.innerHTML = `
+      <div class="nav-links">
+        ${navPages.map(p => `<a href="${p.file}" class="${p.id === activePageId ? 'active' : ''}" id="nav-${p.id}">${i18n[lang]['nav.' + p.id]}</a>`).join('')}
+      </div>
+      <div class="navbar-actions">
+        <div class="theme-toggle">
+          <button id="theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme"></button>
+        </div>
+        <div class="lang-toggle">
+          <button class="${lang === 'fr' ? 'active' : ''}" onclick="setLang('fr')">FR</button>
+          <button class="${lang === 'en' ? 'active' : ''}" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+    `
+    updateThemeIcon()
+  }
+
+  /* Sidebar */
+  const sideEl = document.getElementById('site-sidebar')
+  if (sideEl) {
+    const statusText = i18n[lang]['sidebar.status'].replace(/\n/g, '<br>')
+    const langs = languagesData[lang].replace(/\n/g, '<br>')
+    sideEl.innerHTML = `
+      <div class="profile-section">
+        <img src="public/profile-photo.jpg" alt="Mouhamed Mbaye" class="profile-photo"
+          onerror="this.style.display='none'; document.getElementById('photo-ph').style.display='flex'">
+        <div id="photo-ph" class="photo-placeholder" style="display:none">MM</div>
+        <div>
+          <div class="profile-name">Mouhamed Mbaye</div>
+          <div class="profile-status">${statusText}</div>
+        </div>
+      </div>
+      <hr>
+      <p class="section-label">${i18n[lang]['sidebar.lang-title']}</p>
+      <div class="languages">${langs}</div>
+      <hr>
+      <p class="section-label">${i18n[lang]['sidebar.contact-title']}</p>
+      <nav class="sidebar-links">
+        <a href="mailto:mouhamedmbaye371@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d93025" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          ${i18n[lang]['link.email']}
+        </a>
+        <a href="https://github.com/M-mbaye30" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/mouhamed-mbaye-nlp-tal/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="#0077b5"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://huggingface.co/mbaye930" target="_blank" rel="noopener noreferrer" class="hf-sidebar-badge">
+          <img src="public/huggingface.png" alt="Hugging Face" class="hf-icon">
+          <span>HuggingFace</span>
+        </a>
+        <a href="https://cv.hal.science/mouhamed-mbaye" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          HAL
+        </a>
+        <a href="https://orcid.org/0009-0002-1841-5418" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 256 256" fill="#a6ce39"><path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zM70.7 200.3H52.3V85.3h18.4v115zm-9.2-132.1c-6.2 0-11.2-5-11.2-11.2s5-11.2 11.2-11.2 11.2 5 11.2 11.2-5 11.2-11.2 11.2z"/></svg>
+          ORCID
+        </a>
+      </nav>
+      <hr>
+      <a href="${cvUrl[lang]}" target="_blank" rel="noopener noreferrer" class="btn-cv">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        ${i18n[lang]['link.cv']}
+      </a>
+      <hr>
+      <p class="section-label">${i18n[lang]['sidebar.news-title']}</p>
+      <div class="sidebar-news" id="news-cards"></div>
+    `
+    renderNews(lang)
+  }
+
+  /* Footer */
+  const footerEl = document.getElementById('site-footer')
+  if (footerEl) {
+    footerEl.innerHTML = `
+      <div class="footer-container">
+        <div class="footer-col">
+          <h5>${i18n[lang]['footer.affiliations-title']}</h5>
+          <p>${i18n[lang]['footer.affiliations-text']}</p>
+        </div>
+        <div class="footer-col footer-logos">
+          <img src="public/galsenAI.png" alt="Galsen AI Lab Logo" class="footer-logo-img">
+        </div>
+        <div class="footer-col">
+          <h5>${i18n[lang]['footer.contact-title']}</h5>
+          <p>${i18n[lang]['footer.contact-text']}</p>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        © ${new Date().getFullYear()} Mouhamed Mbaye · Ingénieur TAL / NLP
+      </div>
+    `
+  }
+}
+
+/* ══════════════════════════════════════
+   PAGE-SPECIFIC RENDERERS
+   ══════════════════════════════════════ */
+
+function renderAccueil(lang) {
   const d = aboutData[lang]
-  document.getElementById('about-content').innerHTML = `
-    <p class="about-greeting">${d.greeting}</p>
-    <p class="about-intro">${d.intro}</p>
-    <p class="about-status-line">${d.status}</p>
-    <h3 class="about-interests-title">${d.interestsTitle}</h3>
+  const el = document.getElementById('page-body')
+  if (!el) return
+  el.innerHTML = `
+    <h2 class="page-title">${lang === 'fr' ? 'À propos' : 'About'}</h2>
+    <div class="about-text">
+      <p class="greeting">${d.greeting}</p>
+      <p>${d.intro}</p>
+      <p class="motivation">${d.motivation}</p>
+    </div>
+    <h3 class="sub-heading">${d.interestsTitle}</h3>
     ${d.interests.map(item => `
-      <div class="about-interest">
-        <h4 class="about-interest-title">${item.title}</h4>
-        <p class="about-interest-body">${item.body}</p>
-      </div>`).join('')}
+      <div class="content-entry">
+        <h4>${item.title}</h4>
+        <p>${item.body}</p>
+      </div>
+    `).join('')}
+    <h3 class="sub-heading">${d.contactTitle}</h3>
+    <p>${d.contactText}</p>
+    <p><a href="mailto:mouhamedmbaye371@gmail.com">mouhamedmbaye371@gmail.com</a></p>
   `
 }
 
-function renderResearch(lang) {
-  document.getElementById('research-content').innerHTML = researchAxes[lang].map(axis => `
-    <div class="research-axis">
-      <h3 class="research-axis-title">${axis.title}</h3>
-      <p class="research-axis-body">${axis.body}</p>
-      <p class="research-tags">${axis.tags.map(t => `<span class="research-tag">${t}</span>`).join('')}</p>
-      <p class="research-project-ref">→ Projet : ${axis.projectRef}</p>
-    </div>`).join('')
+function renderRecherche(lang) {
+  const el = document.getElementById('page-body')
+  if (!el) return
+  el.innerHTML = `
+    <h2 class="page-title">${lang === 'fr' ? 'Axes de recherche' : 'Research Areas'}</h2>
+    ${researchAxes[lang].map(axis => `
+      <div class="content-entry">
+        <h4>${axis.title}</h4>
+        <p>${axis.body}</p>
+        <div class="tag-list">${axis.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    `).join('')}
+  `
 }
 
 function renderPublications(lang) {
-  document.getElementById('publications-list').innerHTML = publications[lang].map(pub => `
-    <div class="publication-entry">
-      <p class="pub-meta"><span class="pub-type">${pub.type}</span> <span class="pub-year">${pub.year}</span></p>
-      <p class="pub-title">${pub.title}</p>
-      ${pub.venue ? `<p class="pub-venue">${pub.venue}</p>` : ''}
-      <p class="pub-note">${pub.note}</p>
-      ${pub.pdf ? `<p><a href="${pub.pdf}" target="_blank" rel="noopener noreferrer" class="content-link">↓ ${pub.pdfLabel}</a></p>` : ''}
-    </div>`).join('')
-}
+  const el = document.getElementById('page-body')
+  if (!el) return
+  
+  const papersTitle = lang === 'fr' ? 'Papiers et Rapports' : 'Papers and Reports'
+  const datasetsTitle = lang === 'fr' ? 'Datasets' : 'Datasets'
+  const accessLabel = lang === 'fr' ? 'Accéder' : 'Access'
 
-function renderNews(lang) {
-  document.getElementById('news-list').innerHTML = news[lang].map(item => `
-    <li class="news-item">
-      <span class="news-date">${item.date}</span>
-      <span class="news-text">${item.text}</span>
-    </li>`).join('')
-}
-
-function renderProjects(lang) {
-  const live = i18n[lang]['projects.live']
-  const code = i18n[lang]['projects.code']
-  document.getElementById('projects-list').innerHTML = projects.map(p => {
-    const links = [
-      p.liveUrl   ? `<a href="${p.liveUrl}"   target="_blank" rel="noopener noreferrer" class="content-link">${live}</a>` : '',
-      p.githubUrl ? `<a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" class="content-link">${code}</a>` : '',
-    ].filter(Boolean).join(' · ')
+  // Render datasets HTML as HuggingFace style cards
+  const datasetsHtml = datasets.length > 0 ? datasets.map(r => {
+    // Extract the HuggingFace repo name (e.g. "mbaye930/WolofEntityLinking")
+    const repoName = r.url.includes('datasets/') ? r.url.split('datasets/')[1] : r.title[lang];
+    
     return `
-      <div class="project-entry">
-        <p class="project-header">
-          <strong class="project-title">${p.title}</strong>
-          <span class="project-year">${p.year}</span>
-          <span class="project-cat">· ${p.category[lang]}</span>
+    <a href="${r.url}" target="_blank" rel="noopener noreferrer" class="hf-card">
+      <div class="hf-card-header">
+        <img src="public/huggingface.png" alt="Hugging Face" width="18" height="18" style="vertical-align: middle; border-radius: 2px;">
+        Hugging Face Dataset
+      </div>
+      <div class="hf-card-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+        ${repoName}
+      </div>
+      <p class="hf-card-desc">${r.description[lang]}</p>
+      <div class="hf-card-footer">
+        ${r.tags.map(t => `<span class="tag" style="background:#f3f4f6; color:#374151; border:1px solid #e5e7eb;">${t}</span>`).join('')}
+      </div>
+    </a>
+  `}).join('') : `<p class="empty-note">${lang === 'fr' ? 'Prochainement.' : 'Coming soon.'}</p>`
+
+  el.innerHTML = `
+    <h2 class="page-title">${lang === 'fr' ? 'Publications & Ressources' : 'Publications & Resources'}</h2>
+    <div class="pub-profiles">
+      ${lang === 'fr' ? "Retrouvez l'index complet de mes travaux sur" : 'Full index of my work available on'}
+      <a href="https://cv.hal.science/mouhamed-mbaye" target="_blank">HAL</a> ·
+      <a href="https://orcid.org/0009-0002-1841-5418" target="_blank">ORCID</a>
+      <span class="orcid-id">0009-0002-1841-5418</span>
+    </div>
+
+    <h3 class="section-heading" style="margin-top: 2rem;">${papersTitle}</h3>
+    <div id="publications-list"></div>
+
+    <h3 class="section-heading" style="margin-top: 3rem;">${datasetsTitle}</h3>
+    <div id="datasets-list">
+      ${datasetsHtml}
+    </div>
+  `
+  loadHALPublications()
+}
+
+function renderLogiciels(lang) {
+  const el = document.getElementById('page-body')
+  if (!el) return
+  const liveLabel = lang === 'fr' ? 'Accéder' : 'Access'
+  const codeLabel = lang === 'fr' ? 'Code source' : 'Source code'
+  el.innerHTML = `
+    <h2 class="page-title">${lang === 'fr' ? 'Logiciels & Applications' : 'Software & Applications'}</h2>
+    <p class="page-intro">${lang === 'fr'
+      ? "Applications et outils développés dans le cadre de mes projets de recherche et d'ingénierie."
+      : 'Applications and tools developed as part of my research and engineering projects.'
+    }</p>
+    <div class="software-grid">
+      ${software.map(s => `
+        <div class="software-card">
+          <div class="software-card-title">
+            ${s.title}
+          </div>
+          <p class="software-card-desc">${s.description[lang]}</p>
+          <div class="software-card-techs">
+            ${s.technologies.map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+          <div class="software-card-links">
+            ${s.liveUrl ? `<a href="${s.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-link" style="flex:1; text-align:center;">${liveLabel} ↗</a>` : ''}
+            ${s.githubUrl ? `<a href="${s.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn-link btn-outline" style="flex:1; text-align:center;">${codeLabel} ↗</a>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `
+}
+function renderFormation(lang) {
+  const el = document.getElementById('page-body')
+  if (!el) return
+  el.innerHTML = `
+    <h2 class="page-title">${lang === 'fr' ? 'Formation' : 'Education'}</h2>
+    <ul class="education-list">
+      ${education[lang].map(d => `
+        <li class="education-entry">
+          <span class="year">${d.year}</span>
+          <div>
+            <div class="degree">${d.degree}</div>
+            <div class="institution">${d.institution}</div>
+          </div>
+        </li>
+      `).join('')}
+    </ul>
+  `
+}
+
+/* ── News (sidebar cards) ── */
+function renderNews(lang) {
+  const el = document.getElementById('news-cards')
+  if (!el) return
+  el.innerHTML = news[lang].map(item => `
+    <div class="news-card">
+      <div class="news-date">${item.date}</div>
+      <div class="news-text">${item.text}</div>
+    </div>
+  `).join('')
+}
+
+/* ── Publications (HAL + local fallback) ── */
+async function loadHALPublications() {
+  const el = document.getElementById('publications-list')
+  if (!el) return
+  try {
+    el.innerHTML = `<p class="loading-text">${currentLang === 'fr' ? 'Chargement depuis HAL…' : 'Loading from HAL…'}</p>`
+    const url = `https://api.archives-ouvertes.fr/search/?q=authIdHal_s:%22mouhamed-mbaye%22&wt=json&fl=title_s,authFullName_s,producedDateY_i,docType_s,uri_s,journalTitle_s,bookTitle_s,abstract_s,files_s`
+    const response = await fetch(url)
+    if (!response.ok) throw new Error('HAL error')
+    const data = await response.json()
+    const docs = data.response && data.response.docs
+    if (docs && docs.length > 0) {
+      renderHALPubs(docs)
+    } else {
+      renderLocalPubs()
+    }
+  } catch {
+    renderLocalPubs()
+  }
+}
+
+function renderLocalPubs() {
+  const el = document.getElementById('publications-list')
+  if (!el) return
+  const lang = currentLang
+  el.innerHTML = publications.map(pub => `
+    <div class="content-entry">
+      <p class="pub-citation">
+        ${pub.authors}. <strong>${pub.title[lang]}</strong>. <em>${pub.type[lang]}</em>, ${pub.venue}, ${pub.year}.
+      </p>
+      <div class="entry-links">
+        ${pub.pdf ? `<a href="${pub.pdf}" target="_blank" rel="noopener noreferrer" class="btn-link">PDF</a>` : ''}
+        ${pub.abstract && pub.abstract[lang] ? `<button class="btn-link btn-outline" onclick="toggleAbstract(this)">${lang === 'fr' ? 'Résumé' : 'Abstract'}</button>` : ''}
+      </div>
+      ${pub.abstract && pub.abstract[lang] ? `<div class="abstract-text">${pub.abstract[lang]}</div>` : ''}
+    </div>
+  `).join('')
+}
+
+function renderHALPubs(docs) {
+  const el = document.getElementById('publications-list')
+  if (!el) return
+  const lang = currentLang
+  el.innerHTML = docs.map(doc => {
+    const title = doc.title_s ? doc.title_s[0] : 'Untitled'
+    const authors = doc.authFullName_s ? doc.authFullName_s.join(', ') : 'Unknown'
+    const year = doc.producedDateY_i || 'n.d.'
+    const venueVal = doc.journalTitle_s ? doc.journalTitle_s[0] : (doc.bookTitle_s ? doc.bookTitle_s[0] : '')
+    const docType = doc.docType_s || ''
+    
+    let venueHtml = ''
+    if (docType) venueHtml += `<em>${docType}</em>`
+    if (venueVal) venueHtml += (venueHtml ? ', ' : '') + venueVal
+
+    const abstract = doc.abstract_s ? doc.abstract_s[0] : null
+    return `
+      <div class="content-entry">
+        <p class="pub-citation">
+          ${authors}. <strong>${title}</strong>. ${venueHtml ? venueHtml + ', ' : ''}${year}.
         </p>
-        <p class="project-desc">${p.description[lang]}</p>
-        <p class="project-techs">${p.technologies.join(' · ')}</p>
-        ${links ? `<p>${links}</p>` : ''}
-      </div>`
+        <div class="entry-links">
+          <a href="${doc.uri_s}" target="_blank" rel="noopener noreferrer" class="btn-link">HAL</a>
+          ${doc.files_s ? `<a href="${doc.files_s[0]}" target="_blank" rel="noopener noreferrer" class="btn-link">PDF</a>` : ''}
+          ${abstract ? `<button class="btn-link btn-outline" onclick="toggleAbstract(this)">${lang === 'fr' ? 'Résumé' : 'Abstract'}</button>` : ''}
+        </div>
+        ${abstract ? `<div class="abstract-text">${abstract}</div>` : ''}
+      </div>
+    `
   }).join('')
 }
 
-function renderEducation(lang) {
-  document.getElementById('education-list').innerHTML = education[lang].map(d => `
-    <li class="education-item">
-      <span class="education-year">${d.year}</span>
-      <div>
-        <div class="education-degree">${d.degree}</div>
-        <div class="education-institution">${d.institution}</div>
-      </div>
-    </li>`).join('')
+function toggleAbstract(btn) {
+  const abstractEl = btn.closest('.content-entry').querySelector('.abstract-text')
+  if (!abstractEl) return
+  const isVisible = abstractEl.classList.contains('visible')
+  abstractEl.classList.toggle('visible')
+  btn.textContent = isVisible
+    ? (currentLang === 'fr' ? 'Résumé' : 'Abstract')
+    : (currentLang === 'fr' ? 'Masquer' : 'Hide')
 }
 
-/* ── NAVIGATION PAR SECTION (une section à la fois) ── */
-let currentSection = 'about'
-let currentLang    = 'fr'
+/* ══════════════════════════════════════
+   PAGE INIT
+   ══════════════════════════════════════ */
 
-const bannerTitle = document.getElementById('banner-title')
-
-function showSection(sectionId) {
-  /* Masquer toutes les sections, afficher la cible */
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'))
-  document.getElementById(sectionId).classList.add('active')
-
-  /* Mettre à jour la bannière */
-  bannerTitle.textContent = i18n[currentLang][`nav.${sectionId}`]
-
-  /* Lien actif dans la navbar */
-  document.querySelectorAll('.navbar-links a').forEach(a => {
-    a.classList.toggle('active', a.dataset.section === sectionId)
-  })
-
-  currentSection = sectionId
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+const pageRenderers = {
+  accueil: renderAccueil,
+  recherche: renderRecherche,
+  publications: renderPublications,
+  logiciels: renderLogiciels,
+  formation: renderFormation,
 }
 
-/* Attacher les clics de la navbar */
-document.querySelectorAll('.navbar-links a').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault()
-    showSection(a.dataset.section)
-  })
-})
+function initPage(pageId) {
+  window._currentPage = pageId
+  buildLayout(pageId)
+  if (pageRenderers[pageId]) pageRenderers[pageId](currentLang)
+}
 
-/* ── CHANGEMENT DE LANGUE ── */
 function setLang(lang) {
   currentLang = lang
+  localStorage.setItem('lang', lang)
   document.documentElement.lang = lang
-
-  /* Textes statiques */
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const v = i18n[lang][el.dataset.i18n]
-    if (v !== undefined) el.textContent = v
-  })
-
-  /* Bannière (tenir compte de la section active) */
-  bannerTitle.textContent = i18n[lang][`nav.${currentSection}`]
-
-  /* Sections dynamiques */
-  renderAbout(lang)
-  renderNews(lang)
-  renderProjects(lang)
-  renderEducation(lang)
-  renderPublications(lang)
-
-  /* Boutons actifs */
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang)
-  })
+  buildLayout(window._currentPage)
+  if (pageRenderers[window._currentPage]) pageRenderers[window._currentPage](lang)
 }
 
-/* ── INIT ── */
-document.getElementById('year').textContent = new Date().getFullYear()
-setLang('fr')
-showSection('about')
+function toggleTheme() {
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light'
+  currentTheme = newTheme
+  localStorage.setItem('theme', newTheme)
+  document.documentElement.setAttribute('data-theme', newTheme)
+  updateThemeIcon()
+}
+
+function updateThemeIcon() {
+  const btn = document.getElementById('theme-btn')
+  if (!btn) return
+  if (currentTheme === 'dark') {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`
+  } else {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
+  }
+}
