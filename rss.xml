@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Mouhamed Mbaye - Actualités</title>
+    <link>https://m-mbaye30.github.io/actualites.html</link>
+    <description>Actualités et nouveautés de Mouhamed Mbaye : GalsenAI Lab, évènements, diplômes.</description>
+    <language>fr</language>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://m-mbaye30.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>Intégration de GalsenAI Lab en tant que chercheur et membre actif sur le pôle TAL</title>
+      <link>https://m-mbaye30.github.io/actualites.html</link>
+      <guid isPermaLink="false">galsenai-integration-2026-07</guid>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+      <description>GalsenAI Lab est la communauté et le laboratoire de recherche de référence en intelligence artificielle au Sénégal. J'y contribue activement en menant des travaux de recherche axés sur le traitement automatique des langues locales (comme le Wolof) et l'intégration de technologies d'IA générative.</description>
+    </item>
+
+    <item>
+      <title>Diplômé du Master 2 TAL, Université Marie et Louis Pasteur, Besançon</title>
+      <link>https://m-mbaye30.github.io/formation.html</link>
+      <guid isPermaLink="false">master2-tal-besancon-2025-07</guid>
+      <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+      <description>Spécialisation poussée en traitement automatique des langues (TAL), modélisation linguistique computationnelle, sémantique formelle, et apprentissage automatique appliqué aux données textuelles.</description>
+    </item>
+
+    <item>
+      <title>Stage de recherche NLP au CNRS (IMGT), Montpellier : IMGT-NER-APP</title>
+      <link>https://m-mbaye30.github.io/publications.html</link>
+      <guid isPermaLink="false">stage-cnrs-imgt-2025-01</guid>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+      <description>Conception et implémentation de l'application IMGT-NER-APP au sein du laboratoire CNRS IGH. Ce système permet l'extraction automatique d'entités médicales et cliniques complexes d'intérêt (anticorps monoclonaux) depuis la littérature scientifique.</description>
+    </item>
+
+    <item>
+      <title>Diplômé du Master 2 Data Science-NLP, Université Mohammed V, Rabat</title>
+      <link>https://m-mbaye30.github.io/formation.html</link>
+      <guid isPermaLink="false">master2-datascience-rabat-2024-06</guid>
+      <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+      <description>Formation pluridisciplinaire avancée en apprentissage profond (Deep Learning), architectures de réseaux de neurones (Transformers), Big Data, et techniques modernes de traitement automatique du langage naturel.</description>
+    </item>
+
+    <item>
+      <title>Stage Data Scientist-NLP à l'Université Mohammed V : pipelines multilingues</title>
+      <link>https://m-mbaye30.github.io/formation.html</link>
+      <guid isPermaLink="false">stage-um5-pipelines-2024-01</guid>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+      <description>Développement et déploiement de modèles d'extraction d'information et alignement de documents académiques multilingues pour enrichir la recherche et les outils d'aide à la décision institutionnels.</description>
+    </item>
+  </channel>
+</rss>

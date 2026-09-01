@@ -1,0 +1,16 @@
+{
+  "name": "m-mbaye30.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Page académique de Mouhamed Mbaye - build de production (minification + cache-busting) pour GitHub Pages.",
+  "devDependencies": {
+    "lightningcss-cli": "^1.32.0",
+    "terser": "^5.49.0"
+  }
+}
